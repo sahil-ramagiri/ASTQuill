@@ -1,14 +1,14 @@
 package io.github.astquill;
 
-import io.github.astquill.model.JNode;
+import io.github.astquill.model.JValue;
 import lombok.Getter;
 
 @Getter
 public class ASTree {
 
-  JNode value;
+  JValue value;
 
-  protected ASTree(JNode jNode) {
-    this.value = jNode;
+  protected ASTree(JValue jValue) {
+    this.value = jValue;
   }
 }

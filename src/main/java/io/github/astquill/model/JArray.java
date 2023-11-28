@@ -1,11 +1,17 @@
 package io.github.astquill.model;
 
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
 import java.util.List;
 
-public final class JArray extends JNode {
-  private final String type =  "Array";
+@AllArgsConstructor
+@ToString
+public final class JArray implements JNode, JValue {
 
-  private List<JNode> children;
+  private final String type = "Array";
+
+  private List<JValue> children;
 
   private Loc loc;
 }

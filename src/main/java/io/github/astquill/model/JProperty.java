@@ -1,11 +1,16 @@
 package io.github.astquill.model;
 
-public class JProperty {
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
+@AllArgsConstructor
+@ToString
+public class JProperty implements JNode {
   private final String type = "Property";
 
   private JIdentifier key;
 
-  private JNode value;
+  private JValue value;
 
   private Loc loc;
 }

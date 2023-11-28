@@ -1,9 +1,11 @@
 package io.github.astquill.model;
 
+import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 @ToString
-public final class JLiteral extends JNode {
+@AllArgsConstructor
+public final class JLiteral implements JNode, JValue {
 
   private final String type = "Literal";
 
