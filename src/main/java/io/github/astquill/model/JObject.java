@@ -1,11 +1,11 @@
 package io.github.astquill.model;
 
-import lombok.AllArgsConstructor;
-import lombok.ToString;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @AllArgsConstructor
-@ToString
+@Data
 public final class JObject implements JNode, JValue {
 
   private final String type = "Object";

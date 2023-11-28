@@ -1,5 +1,7 @@
 package io.github.astquill.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.astquill.error.ParserError;
 import io.github.astquill.model.JValue;
 import io.github.astquill.result.LexerResult;
@@ -16,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParserTest {
 
   @Test
-  void parse() {
+  void parse() throws JsonProcessingException {
     String json = """
         {
             "key1": [true, false, null],
             "key2": {
-                "key3": [1, 2, "3", 1e10, 1e-3]
+                "key 3": [1, 2, "3", 1e10, 1e-3]
             }
         }
         """;
@@ -34,6 +36,7 @@ class ParserTest {
     Parser parser = new Parser();
     Result<JValue, ParserError> result = parser.parse(lexerResult.getT());
 
-    System.out.println(result.orElseThrow(Function.identity()));
+    ObjectMapper objectMapper = new ObjectMapper();
+    System.out.println(objectMapper.writeValueAsString(result.orElseThrow(Function.identity())));
   }
 }

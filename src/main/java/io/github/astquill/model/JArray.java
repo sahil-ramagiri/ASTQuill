@@ -1,12 +1,11 @@
 package io.github.astquill.model;
 
-import lombok.AllArgsConstructor;
-import lombok.ToString;
-
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
-@ToString
 public final class JArray implements JNode, JValue {
 
   private final String type = "Array";

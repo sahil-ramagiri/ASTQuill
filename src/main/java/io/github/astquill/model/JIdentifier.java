@@ -1,10 +1,10 @@
 package io.github.astquill.model;
 
 import lombok.AllArgsConstructor;
-import lombok.ToString;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
-@ToString
 public class JIdentifier implements JNode {
 
   private final String type = "Identifier";

@@ -45,6 +45,7 @@ public class Parser {
 
       switch (state) {
         case _START_ -> {
+          log.debug("Parsing property at Index: {}, currentState: {}", index, state);
           if (token.tokenType() == TokenType.STRING) {
             key = new JIdentifier(LiteralParser.parseString(token.raw()), token.raw(), token.loc());
             startToken = token;
@@ -53,6 +54,7 @@ public class Parser {
           }
         }
         case KEY -> {
+          log.debug("Parsing property at Index: {}, currentState: {}", index, state);
           if (token.tokenType() == TokenType.COLON) {
             state = PropertyState.COLON;
             index++;
@@ -61,6 +63,7 @@ public class Parser {
           }
         }
         case COLON -> {
+          log.debug("Parsing property at Index: {}, currentState: {}", index, state);
           Result<Offset, ParserError> offsetResult = parseValue(tokens, index);
           Offset offset = offsetResult.orElseThrow(Function.identity());
           value = (JValue) offset.value();
@@ -68,7 +71,7 @@ public class Parser {
           loc.setStart(startToken.loc().getStart());
           loc.setEnd(token.loc().getEnd());
           JProperty jProperty = new JProperty(key, value, loc);
-          return Result.success(new Offset(jProperty, index));
+          return Result.success(new Offset(jProperty, offset.index));
         }
       }
     }
@@ -109,6 +112,7 @@ public class Parser {
 
       switch (state) {
         case _START_ -> {
+          log.debug("Parsing object at Index: {}, currentState: {}", index, state);
           if (token.tokenType() == TokenType.LEFT_BRACE) {
             startToken = token;
             state = ObjectState.OPEN_OBJECT;
@@ -118,7 +122,8 @@ public class Parser {
           }
         }
         case OPEN_OBJECT -> {
-          if (token.tokenType() == TokenType.RIGHT_BRACKET) {
+          log.debug("Parsing object at Index: {}, currentState: {}", index, state);
+          if (token.tokenType() == TokenType.RIGHT_BRACE) {
             Loc loc = new Loc();
             loc.setStart(startToken.loc().getStart());
             loc.setEnd(token.loc().getEnd());
@@ -139,7 +144,8 @@ public class Parser {
           }
         }
         case PROPERTY -> {
-          if (token.tokenType() == TokenType.RIGHT_BRACKET) {
+          log.debug("Parsing object at Index: {}, currentState: {}", index, state);
+          if (token.tokenType() == TokenType.RIGHT_BRACE) {
             Loc loc = new Loc();
             loc.setStart(startToken.loc().getStart());
             loc.setEnd(token.loc().getEnd());
@@ -154,6 +160,7 @@ public class Parser {
           }
         }
         case COMMA -> {
+          log.debug("Parsing object at Index: {}, currentState: {}", index, state);
           Result<Offset, ParserError> offsetResult = parseProperty(
               tokens, index);
           try {
@@ -188,6 +195,7 @@ public class Parser {
 
       switch (state) {
         case _START_ -> {
+          log.debug("Parsing array at Index: {}, currentState: {}", index, state);
           if (token.tokenType() == TokenType.LEFT_BRACKET) {
             startToken = token;
             state = ArrayState.OPEN_ARRAY;
@@ -197,6 +205,7 @@ public class Parser {
           }
         }
         case OPEN_ARRAY -> {
+          log.debug("Parsing array at Index: {}, currentState: {}", index, state);
           if (token.tokenType() == TokenType.RIGHT_BRACKET) {
             Loc loc = new Loc();
             loc.setStart(startToken.loc().getStart());
@@ -217,6 +226,7 @@ public class Parser {
           }
         }
         case VALUE -> {
+          log.debug("Parsing array at Index: {}, currentState: {}", index, state);
           if (token.tokenType() == TokenType.RIGHT_BRACKET) {
             Loc loc = new Loc();
             loc.setStart(startToken.loc().getStart());
@@ -232,6 +242,7 @@ public class Parser {
           }
         }
         case COMMA -> {
+          log.debug("Parsing array at Index: {}, currentState: {}", index, state);
           Result<Offset, ParserError> offsetResult = parseValue(tokens, index);
           try {
             Offset offset = offsetResult.orElseThrow(Function.identity());
