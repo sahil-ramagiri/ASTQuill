@@ -14,4 +14,8 @@ public class JIdentifier implements JNode {
   private String raw;
 
   private Loc loc;
+
+  public String toString() {
+    return value;
+  }
 }
