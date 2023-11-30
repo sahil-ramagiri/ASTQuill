@@ -81,8 +81,10 @@ public final class ToString {
       col++;
     }
 
-    res.delete(res.length() - 1, res.length());
-    col--;
+    if (res.charAt(res.length() - 1) == ',') {
+      res.delete(res.length() - 1, res.length());
+      col--;
+    }
 
     while (lin < loc.getEnd().getLine()) {
       res.append("\n");
@@ -172,8 +174,10 @@ public final class ToString {
       col++;
     }
 
-    res.delete(res.length() - 1, res.length());
-    col--;
+    if (res.charAt(res.length() - 1) == ',') {
+      res.delete(res.length() - 1, res.length());
+      col--;
+    }
 
     while (lin < loc.getEnd().getLine()) {
       res.append("\n");
