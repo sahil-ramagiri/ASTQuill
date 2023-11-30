@@ -38,5 +38,6 @@ class ParserTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
     System.out.println(objectMapper.writeValueAsString(result.orElseThrow(Function.identity())));
+    System.out.println(json);
   }
 }

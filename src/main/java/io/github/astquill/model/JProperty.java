@@ -14,9 +14,4 @@ public class JProperty implements JNode {
   private JValue value;
 
   private Loc loc;
-
-  @Override
-  public String toString() {
-    return "\"" + key.getValue() + "\"" + ": " + value.toString();
-  }
 }

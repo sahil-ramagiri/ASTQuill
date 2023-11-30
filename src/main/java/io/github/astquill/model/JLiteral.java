@@ -32,8 +32,6 @@ public final class JLiteral implements JNode, JValue {
   }
 
 
-  public String toString() {
-    return raw;
-  }
+
 
 }
