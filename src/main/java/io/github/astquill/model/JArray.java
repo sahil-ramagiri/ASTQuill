@@ -13,17 +13,4 @@ public final class JArray implements JNode, JValue {
   private List<JValue> children;
 
   private Loc loc;
-
-  public String toString() {
-    StringBuilder newString = new StringBuilder();
-    newString.append("[");
-
-    for (JValue value : children) {
-      newString.append(value.toString());
-      newString.append(",");
-    }
-
-    newString.append("]");
-    return newString.toString();
-  }
 }

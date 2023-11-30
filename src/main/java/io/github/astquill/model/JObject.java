@@ -14,16 +14,4 @@ public final class JObject implements JNode, JValue {
 
   private Loc loc;
 
-  public String toString() {
-    StringBuilder newString = new StringBuilder();
-    newString.append("{");
-
-    for (JProperty property : children) {
-      newString.append(property.toString());
-      newString.append(",");
-    }
-
-    newString.append("}");
-    return newString.toString();
-  }
 }

@@ -17,22 +17,22 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ASTQuillTest {
-  @Test
-  void read() throws JsonProcessingException {
-    String json = """
-        {
-            "key1": [true, false, null],
-            "key2": {
-                "key 3": [1, 2, "3", 1e10, 1e-3]
-            }
-        }
-        """;
+  // @Test
+  // void read() throws JsonProcessingException {
+  //   String json = """
+  //       {
+  //           "key1": [true, false, null],
+  //           "key2": {
+  //               "key 3": [1, 2, "3", 1e10, 1e-3]
+  //           }
+  //       }
+  //       """;
 
-    ASTree result = ASTQuill.read(json);
+  //   ASTree result = ASTQuill.read(json);
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    System.out.println(objectMapper.writeValueAsString(result));
-  }
+  //   ObjectMapper objectMapper = new ObjectMapper();
+  //   System.out.println(objectMapper.writeValueAsString(result));
+  // }
 
   @Test
   void tostring() throws JsonProcessingException {

@@ -5,6 +5,8 @@ import io.github.astquill.settings.LexerOptions;
 import io.github.astquill.util.Lexer;
 import io.github.astquill.util.Lexer.Token;
 import io.github.astquill.util.Parser;
+import io.github.astquill.util.ToString;
+
 import java.util.List;
 import java.util.function.Function;
 
@@ -22,7 +24,7 @@ public class ASTQuill {
   }
 
   public static String write(ASTree asTree) {
-    return asTree.value.toString();
+    return ToString.run(asTree.getValue());
   }
 
 }
