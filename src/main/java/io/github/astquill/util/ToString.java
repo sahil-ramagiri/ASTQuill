@@ -61,23 +61,16 @@ public final class ToString {
     StringBuilder res = new StringBuilder();
     Loc loc = array.getLoc();
 
-
     while (lin < loc.getStart().getLine()) {
       res.append("\n");
       col = 1;
       lin++;
     }
 
-    System.out.println(lin);
-    System.out.println(loc.getStart().getLine());
-
     while (col < loc.getStart().getColumn() - 1) {
       res.append(" ");
       col++;
     }
-
-    System.out.println(col);
-    System.out.println(loc.getStart().getColumn() - 1);
 
     res.append("[");
     col++;
@@ -88,9 +81,7 @@ public final class ToString {
       col++;
     }
 
-    System.out.println(res.toString() + "|");
     res.delete(res.length() - 1, res.length());
-    System.out.println(res.toString() + "|");
     col--;
 
     while (lin < loc.getEnd().getLine()) {
@@ -106,11 +97,6 @@ public final class ToString {
       res.append(" ");
       col++;
     }
-
-    System.out.println(res.toString() + "|");
-
-    System.out.println(col);
-    System.out.println(loc.getEnd().getColumn());
 
     return res.toString();
   }
@@ -152,7 +138,14 @@ public final class ToString {
     }
 
     col += literal.getRaw().length();
-    return res.append(literal.getRaw()).toString();
+    res.append(literal.getRaw());
+
+    while (col < loc.getEnd().getColumn() - 1 ) {
+      res.append(" ");
+      col++;
+    }
+
+    return res.toString();
   }
 
   private static String JObjectToString(JObject object) {
