@@ -9,11 +9,16 @@ import io.github.astquill.model.JProperty;
 import io.github.astquill.model.JValue;
 import io.github.astquill.model.Loc;
 
-public final class ToString {
-  private static int lin = 1;
-  private static int col = 1;
+public class ASTToString {
+  private int lin;
+  private int col;
 
-  public static String run(JValue value) {
+  public ASTToString() {
+    this.lin = 1;
+    this.col = 1;
+  }
+
+  public String toString(JValue value) {
     StringBuilder res = new StringBuilder();
 
     if (value instanceof JArray) {
@@ -32,7 +37,7 @@ public final class ToString {
     return res.toString();
   }
 
-  public static String run(JNode node) {
+  public String toString(JNode node) {
     StringBuilder res = new StringBuilder();
 
     if (node instanceof JArray) {
@@ -57,7 +62,7 @@ public final class ToString {
     return res.toString();
   }
 
-  private static String JArrayToString(JArray array) {
+  private String JArrayToString(JArray array) {
     StringBuilder res = new StringBuilder();
     Loc loc = array.getLoc();
 
@@ -76,7 +81,7 @@ public final class ToString {
     col++;
 
     for (JValue value : array.getChildren()) {
-      res.append(ToString.run(value));
+      res.append(this.toString(value));
       res.append(",");
       col++;
     }
@@ -103,7 +108,7 @@ public final class ToString {
     return res.toString();
   }
 
-  private static String JIdentifierToString(JIdentifier identifier) {
+  private String JIdentifierToString(JIdentifier identifier) {
     StringBuilder res = new StringBuilder();
 
     Loc loc = identifier.getLoc();
@@ -124,7 +129,7 @@ public final class ToString {
     return res.append(identifier.getRaw()).toString();
   }
 
-  private static String JLiteralToString(JLiteral literal) {
+  private String JLiteralToString(JLiteral literal) {
     StringBuilder res = new StringBuilder();
     Loc loc = literal.getLoc();
 
@@ -150,7 +155,7 @@ public final class ToString {
     return res.toString();
   }
 
-  private static String JObjectToString(JObject object) {
+  private String JObjectToString(JObject object) {
     StringBuilder res = new StringBuilder();
     Loc loc = object.getLoc();
 
@@ -169,7 +174,7 @@ public final class ToString {
     col++;
 
     for (JProperty property : object.getChildren()) {
-      res.append(ToString.run(property));
+      res.append(this.toString(property));
       res.append(",");
       col++;
     }
@@ -195,8 +200,8 @@ public final class ToString {
     return res.toString();
   }
 
-  private static String JPropertyToString(JProperty property) {
+  private String JPropertyToString(JProperty property) {
     col++;
-    return JIdentifierToString(property.getKey()) + ":" + ToString.run(property.getValue());
+    return JIdentifierToString(property.getKey()) + ":" + this.toString(property.getValue());
   }
 }
