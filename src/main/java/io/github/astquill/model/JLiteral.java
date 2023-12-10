@@ -31,7 +31,4 @@ public final class JLiteral implements JNode, JValue {
     return subtype.equals(JPrimitive.NULL);
   }
 
-
-
-
 }

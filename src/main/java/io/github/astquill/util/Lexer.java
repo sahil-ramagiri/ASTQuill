@@ -5,13 +5,9 @@ import io.github.astquill.model.Loc;
 import io.github.astquill.model.SourceLoc;
 import io.github.astquill.result.LexerResult;
 import io.github.astquill.settings.LexerOptions;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
+import java.util.*;
+import java.util.Map.Entry;
 
 @Slf4j
 public class Lexer {

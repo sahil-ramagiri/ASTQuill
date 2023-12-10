@@ -1,13 +1,17 @@
 package io.github.astquill;
 
+import io.github.astquill.model.JProperty;
+import io.github.astquill.model.JValue;
 import io.github.astquill.result.LexerResult;
 import io.github.astquill.settings.LexerOptions;
 import io.github.astquill.util.ASTToString;
+import io.github.astquill.util.JsonPointer;
 import io.github.astquill.util.Lexer;
 import io.github.astquill.util.Lexer.Token;
 import io.github.astquill.util.Parser;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class ASTQuill {
@@ -28,4 +32,12 @@ public class ASTQuill {
     return astToString.toString(asTree.getValue());
   }
 
+
+  public static Optional<JValue> findValue(ASTree asTree, String xpath) {
+    return JsonPointer.findValue(asTree.getValue(), xpath);
+  }
+
+  public static Optional<JProperty> findKey(String xpath) {
+    return Optional.empty();
+  }
 }
