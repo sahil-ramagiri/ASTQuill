@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.astquill.model.JValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.Optional;
 
 class ASTQuillTest {
+
   @Test
   void read() throws JsonProcessingException {
     String json = """
@@ -178,6 +180,45 @@ class ASTQuillTest {
     boolean success = ASTQuill.editToNull(asTree, "key  4");
     success = success && ASTQuill.editToNull(asTree, "key2.key 3[0]");
     Assertions.assertTrue(success);
+    System.out.println(ASTQuill.write(asTree));
+  }
+
+  @Test
+  void editDemo() {
+    String json = """
+        {
+            "key1": [true,    false, null, 2, 1, {
+                "name": "ian",
+                "student": true
+            }],
+            "key2": {
+                "key 3": [1, 2, "3", 1e10, 1e-3]
+            },
+            "key  4": [{}, {}, {}],
+               "key5": []
+        }""";
+    String expected = """
+        {
+            "key1": [false,   false, null, 2, 1, {
+                "name": "ian jones",
+                "student": true
+            }],
+            "key2": {
+                "key 3": [1, 2, 3,   1e10, 1e-3]
+            },
+            "key  4": null,
+               "keyfive":[]
+        }""";
+
+    ASTree asTree = ASTQuill.read(json);
+
+    ASTQuill.editKey(asTree, "key5", "keyfive");
+    ASTQuill.editToNull(asTree, "key  4");
+    ASTQuill.editToString(asTree, "key1[5].name", "ian jones");
+    ASTQuill.editToBoolean(asTree, "key1[0]", false);
+    ASTQuill.editToNumber(asTree, "key2.key 3[2]", 3);
+
+    Assertions.assertEquals(expected, ASTQuill.write(asTree));
     System.out.println(ASTQuill.write(asTree));
   }
 }
