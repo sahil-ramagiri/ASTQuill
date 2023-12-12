@@ -8,6 +8,7 @@ import io.github.astquill.model.JValue;
 import io.github.astquill.util.XpathLexer.XpathToken;
 import no.gorandalum.fluentresult.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -22,23 +23,29 @@ public class JsonPointer {
     if (xpathTokens.isEmpty()) {
       return Optional.empty();
     }
-    return findValue(root, xpathTokens);
+    List<JValue> parentChain = findValueAndParent(root, xpathTokens);
+    if (parentChain.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(parentChain.get(parentChain.size() - 1));
   }
 
-  public static Optional<JValue> findValue(JValue root, List<XpathToken> xpathTokens)
+  public static List<JValue> findValueAndParent(JValue root, List<XpathToken> xpathTokens)
       throws InvalidXpathException {
     JValue current = root;
+    List<JValue> parentChain = new ArrayList<>();
     for (XpathToken xpathToken : xpathTokens) {
       switch (xpathToken.tokenType()) {
         case INDEX -> {
           if (current instanceof JArray jArray) {
             if (xpathToken.getIndex() < jArray.getChildren().size()) {
+              parentChain.add(current);
               current = jArray.getChildren().get(xpathToken.getIndex());
             } else {
-              return Optional.empty();
+              return List.of();
             }
           } else {
-            return Optional.empty();
+            return List.of();
           }
         }
 
@@ -49,15 +56,17 @@ public class JsonPointer {
                 .map(JProperty::getValue)
                 .findFirst();
             if (value.isPresent()) {
+              parentChain.add(current);
               current = value.get();
             } else {
-              return Optional.empty();
+              return List.of();
             }
           }
         }
       }
     }
-    return Optional.of(current);
+    parentChain.add(current);
+    return parentChain;
   }
 
 }

@@ -28,4 +28,12 @@ public class Loc {
 
     return new Loc(newStart, newEnd);
   }
+
+  public Loc setNewLength(int newLength) {
+    SourceLoc newStart = new SourceLoc(start.getLine(), start.getColumn(), start.getOffset());
+    SourceLoc newEnd = new SourceLoc(start.getLine(), start.getColumn() + newLength,
+        start.getOffset() + newLength);
+
+    return new Loc(newStart, newEnd);
+  }
 }
