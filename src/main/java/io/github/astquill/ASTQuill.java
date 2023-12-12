@@ -4,6 +4,7 @@ import io.github.astquill.model.JProperty;
 import io.github.astquill.model.JValue;
 import io.github.astquill.result.LexerResult;
 import io.github.astquill.settings.LexerOptions;
+import io.github.astquill.util.ASTEdit;
 import io.github.astquill.util.ASTToString;
 import io.github.astquill.util.JsonPointer;
 import io.github.astquill.util.Lexer;
@@ -37,7 +38,7 @@ public class ASTQuill {
     return JsonPointer.findValue(asTree.getValue(), xpath);
   }
 
-  public static Optional<JProperty> findKey(String xpath) {
-    return Optional.empty();
+  public static boolean editKey(ASTree asTree, String xpath, String newKey) {
+    return ASTEdit.editKey(asTree.getValue(), xpath, newKey);
   }
 }

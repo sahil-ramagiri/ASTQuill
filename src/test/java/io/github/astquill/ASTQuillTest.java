@@ -65,4 +65,26 @@ class ASTQuillTest {
 
     System.out.println(value);
   }
+
+  @Test
+  void editKey() {
+    String json = """
+        {
+            "key1": [true,    false, null, 2, 1, {
+                "name": "ian",
+                "student": true
+            }],
+            "key2": {
+                "key 3": [1, 2, "3", 1e10, 1e-3]
+            },
+            "key  4": [{}, {}, {}],
+               "key5": []
+        }
+        """;
+
+    ASTree asTree = ASTQuill.read(json);
+    boolean success = ASTQuill.editKey(asTree, "key1[5].name", "studentName");
+    System.out.println("Success :" + success);
+    System.out.println(ASTQuill.write(asTree));
+  }
 }

@@ -22,7 +22,11 @@ public class JsonPointer {
     if (xpathTokens.isEmpty()) {
       return Optional.empty();
     }
+    return findValue(root, xpathTokens);
+  }
 
+  public static Optional<JValue> findValue(JValue root, List<XpathToken> xpathTokens)
+      throws InvalidXpathException {
     JValue current = root;
     for (XpathToken xpathToken : xpathTokens) {
       switch (xpathToken.tokenType()) {

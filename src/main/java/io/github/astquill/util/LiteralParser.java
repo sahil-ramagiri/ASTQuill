@@ -8,4 +8,8 @@ public class LiteralParser {
     String trimmed = raw.substring(1, raw.length() - 1);
     return StringEscapeUtils.unescapeEcmaScript(trimmed);
   }
+
+  public static String unparseString(String str) {
+    return '"' + StringEscapeUtils.escapeEcmaScript(str) + '"';
+  }
 }
